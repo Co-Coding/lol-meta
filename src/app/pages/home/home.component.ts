@@ -51,7 +51,8 @@ export class HomeComponent implements OnInit {
   }
   
   onSubmit(form:NgForm ){
-    console.log(this.summoner);
+
+    this.cargando = true;
 
     this.summ.getSummoner( this.summoner.name,this.summoner.regionId )
     .pipe( 
@@ -91,9 +92,7 @@ export class HomeComponent implements OnInit {
         this.itemImage = itemImage
         
         console.log(this.dataParticipants);
-        console.log(this.matchesArray);
-        this.matchesArray.forEach( x => console.log(x.summonerMatchInfo))
-        
+        console.log(this.matchesArray);   
         
        }), 
        tap( (matchesArray) => {
@@ -120,16 +119,13 @@ export class HomeComponent implements OnInit {
                icon: 'error',
                title: error
              });
-             console.log(error)
              this.cargando = false;
            });
       
     
   }
 
-  openMatchStats(index,mat){
-    console.log(mat);  
-    console.log(index);  
+  openMatchStats(index,mat){ 
     this.index = index
     mat.show = mat.show  ? false : true;
   };
