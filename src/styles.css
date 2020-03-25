@@ -1,0 +1,313 @@
+label {
+    text-align: center;
+    display: block;
+}
+
+.table td,
+.table th {
+    padding: 0.2rem;
+    vertical-align: top;
+    /* border-top: 1px solid #000000; */
+    /* width: auto; */
+}
+
+.hr-style {
+    background: black;
+    border-top: 1px solid #000000;
+    color: black;
+}
+
+
+/* Champ Details */
+
+
+/*--Column Styles--*/
+
+div.img-champ {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+}
+
+div.img-champ div {
+    float: left;
+    display: inline;
+    padding: 0;
+    position: relative;
+}
+
+div.img-champ div:hover {
+    z-index: 99;
+}
+
+
+/*--Thumbnail Styles--*/
+
+div.img-champ div img {
+    position: relative;
+    opacity: 1;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+    /*--IE8 Specific--*/
+}
+
+div.img-champ div:hover img {
+    z-index: 999;
+    opacity: 0.3;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+}
+
+
+/*--Details Style--*/
+
+div.img-champ div .info {
+    color: rgb(233, 233, 233);
+    position: absolute;
+    /* left: 10px; */
+    top: -150px;
+    padding: 20px 10px 20px;
+    width: 120px;
+    display: none;
+    background: #333333;
+    font-size: 1.2em;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+div.img-champ div:hover .info {
+    display: block;
+}
+
+div.img-champ div h5 {
+    font-size: 1.2em;
+    font-weight: normal;
+    margin: 0;
+    padding: 10px 0;
+}
+
+div.img-champ div p {
+    padding: 0;
+    margin: 0;
+    font-size: 0.9em;
+}
+
+
+/* End Champ Details */
+
+
+/* Items Detail */
+
+
+/*--Column Styles--*/
+
+div.img-item {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+}
+
+div.img-item div {
+    float: left;
+    display: inline;
+    padding: 0;
+    position: relative;
+}
+
+div.img-item div:hover {
+    z-index: 99;
+}
+
+
+/*--Thumbnail Styles--*/
+
+div.img-item div img {
+    position: relative;
+    opacity: 1;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+    /*--IE8 Specific--*/
+}
+
+div.img-item div:hover img {
+    z-index: 999;
+    opacity: 0.3;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+}
+
+
+/*--Details Style--*/
+
+div.img-item div .info {
+    color: rgb(233, 233, 233);
+    position: absolute;
+    /* left: 10px; */
+    top: -150px;
+    padding: 20px 10px 20px;
+    width: 120px;
+    display: none;
+    background: #333333;
+    font-size: 1.2em;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+div.img-item div:hover .info {
+    display: block;
+}
+
+div.img-item div h5 {
+    font-size: 1.2em;
+    font-weight: normal;
+    margin: 0;
+    padding: 10px 0;
+}
+
+div.img-item div p {
+    padding: 0;
+    margin: 0;
+    font-size: 0.9em;
+}
+
+
+/* Summoner */
+
+.summoner-name {
+    padding-top: 0.5rem;
+    margin-left: 5px
+}
+
+
+/* Summoner */
+
+
+/* Items */
+
+.item-div .item {
+    position: relative;
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    /* vertical-align: middle; */
+}
+
+.item-div {
+    width: 180px;
+}
+
+.stats-div .stats {
+    display: inline-block;
+    width: 50px;
+}
+
+.item-div .item img {
+    position: absolute;
+    display: inline-block;
+    max-width: 100%;
+    max-height: 100%;
+    vertical-align: middle;
+}
+
+
+/* End Items */
+
+
+/* Champ  */
+
+.champImage {
+    width: 22px;
+    height: 22px;
+}
+
+.champImage img {
+    width: 32px;
+    height: 32px;
+}
+
+
+/* End Champ */
+
+
+/* Spell */
+
+div.img-spell {
+    width: 40px;
+}
+
+.img-spell {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+}
+
+.img-spell img {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+}
+
+
+/* End Spell */
+
+
+/* Perk */
+
+.perk-center {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+
+/* End Perk */
+
+
+/* Match History */
+
+.match-history-champ {
+    display: inline-block;
+    width: 80px;
+}
+
+.match-history-champ-img {
+    display: inline-block;
+    width: 80px;
+}
+
+
+/* End Match History */
+
+
+/* Table */
+
+.table th {
+    text-align: center;
+}
+
+.table th .th-head {
+    width: 400px;
+}
+
+.table td {
+    text-align: center;
+}
+
+
+/* End Table */
+
+* {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+*:before,
+*:after {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+.container,
+.continar-fluid {
+    min-width: 1200px;
+}

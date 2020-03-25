@@ -1,0 +1,273 @@
+<div>
+    <h3> APP En desarrollo </h3>
+</div>
+<div class="d-flex justify-content-center mt-3">
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm" action="">
+        <div class="">
+            <div class="form-group ">
+                <label>Summoner</label>
+                <input class="form-control ml-1" [(ngModel)]="summoner.name" name="name" type="text">
+            </div>
+            <div class="form-group ">
+                <label>Region</label>
+                <select class="form-control" [(ngModel)]="summoner.regionId" required name="category" id="">
+                    <option *ngFor="let reg of region" > {{ reg.region }} </option>
+                </select>
+            </div>
+            <!-- <div class="form-group ">
+                <label class="d-flex justify-content-center" for="">Region</label>
+                <input class="form-control ml-1" [(ngModel)]="summoner.regionId" name="regionId" type="text">
+            </div> -->
+            <div class="d-flex justify-content-center">
+                <button class="btn btn-success">Buscar</button>
+            </div>
+        </div>
+    </form>
+    <br>
+
+</div>
+
+<div *ngIf="cargando" class="alert alert-info- text-center">
+    <h4 class="alert-heading">Cargando</h4>
+    <p>
+        <i class="fa fa-sync-alt fa-spin fa-2x"></i>
+    </p>
+</div>
+
+<div *ngIf="!cargando" class="container">
+    <!-- Match History and Info -->
+    <ng-container *ngFor="let matc of matchesArray; let i = index">
+        <div class="match-list flex-nowrap flex-row">
+            <div class="row flex-nowrap flex-row mt-2 ">
+                <div style="display: flex;" class="col-md-2">
+                    <div class="match-history-champ col-md-6">
+                        <img class="match-history-champ-img" (click)="openMatchStats(i,matc)" [src]="matc.summonerMatchInfo.championIdImage" alt="" srcset="">
+                    </div>
+                    <div>
+                        <div> {{ matc.summonerMatchInfo.stats.matchResult }} </div>
+                        <div>
+                            <img style="width: 22px;" [src]="matc.summonerMatchInfo.spellId1Info.image" alt="">
+                            <img style="width: 22px;" [src]="matc.summonerMatchInfo.spellId2Info.image" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <p>
+                        {{ matc.summonerMatchInfo.stats.kills}} / {{matc.summonerMatchInfo.stats.deaths}} / {{matc.summonerMatchInfo.stats.assists }}
+                    </p>
+                </div>
+                <div class="col-md-1">
+                    <p>
+                        Game Duration {{ gameDuration[i] }}
+                    </p>
+                </div>
+                <div class="col-md-1">
+                    <p>
+                        {{ matc.summonerMatchInfo.stats.goldEarned }}
+                    </p>
+                </div>
+                <div>
+                    <div>
+                        <img class="perk-center" [src]="matc.summonerMatchInfo.stats.perkData.image | domseguro" alt="">
+                    </div>
+                </div>
+                <div class="col-md-3 item-div ">
+                    <div class="img-item">
+                        <div *ngFor="let image of matc.summonerMatchInfo.stats.itemImage; let ii = index" class="item">
+                            <div class="info">
+                                <h5> {{ matc.summonerMatchInfo.stats.itemInfo[ii]?.name }} </h5>
+                                <p> </p>
+                            </div>
+                            <img [src]="image | domseguro " alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="hr-style">
+            <!-- End Match History and Info -->
+
+            <!-- Single Match and Info -->
+            <div class="container">
+                <div class="col-md-12">
+                    <ng-container *ngFor="let mat of matchesArray; let i = index">
+                        <div *ngIf="matc.show === true && mat.gameId === matc.gameId ">
+                            <!-- Match Winner -->
+                            <table class="table table-borderless ">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th class="th-head" colspan="3">Victoria</th>
+                                        <th scope="col">División</th>
+                                        <th scope="col">Champ Level </th>
+                                        <th scope="col">KDA</th>
+                                        <th scope="col">Keystone</th>
+                                        <th scope="col">Items</th>
+                                        <th scope="col">Gold</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <ng-container *ngFor="let parti of dataParticipants; let idp = index ">
+                                        <tr *ngIf="matc.participants[idp].stats.win === true ">
+                                            <td class="champImage">
+                                                <!-- Champ detail -->
+                                                <div class="img-champ col-md-8 pt-2 ">
+                                                    <div class="">
+                                                        <div class="info">
+                                                            <h5> {{ matc.participants[idp].champInfo.name }} </h5>
+                                                            <p> BE{{ matc.participants[idp].champInfo.price.blueEssence }}</p>
+                                                            <p> RP: {{ matc.participants[idp].champInfo.price.rp }}</p>
+                                                        </div>
+                                                        <img [src]="matc.participants[idp].championIdImage" alt="">
+                                                    </div>
+                                                </div>
+
+                                                <!-- End Champ detail -->
+                                            </td>
+                                            <td>
+                                                <!-- Spells -->
+                                                <div class="img-spell row">
+                                                    <div class=" col-md-6">
+                                                        <img [src]="matc.participants[idp].spellId1Info.image" alt="">
+                                                    </div>
+                                                    <div class=" col-md-6">
+                                                        <img [src]="matc.participants[idp].spellId2Info.image" alt="">
+                                                    </div>
+                                                </div>
+                                                <!-- End Spells -->
+                                            </td>
+                                            <td>
+                                                <div style="width: 200px;">
+                                                    <p class="summoner-name">
+                                                        {{ matc.participantIdentities[idp].player.summonerName }}
+                                                    </p>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <p>Division</p>
+                                            </td>
+                                            <td>
+                                                <p> {{matc.participants[idp].stats.champLevel}} </p>
+                                            </td>
+                                            <td>
+                                                <p> {{matc.participants[idp].stats.kills}} / {{matc.participants[idp].stats.deaths}} / {{matc.participants[idp].stats.assists}} </p>
+                                            </td>
+                                            <td>
+                                                <div>
+                                                    <img class="perk-center" [src]="matc.participants[idp].stats.perkData.image | domseguro" alt="">
+                                                </div>
+                                            </td>
+                                            <td class="item-div">
+                                                <div class="img-item">
+                                                    <div *ngFor="let image of matc.participants[idp].stats.itemImage; let ii = index" class="item">
+                                                        <div class="info">
+                                                            <h5> {{ matc.participants[idp].stats.itemInfo[ii]?.name }} </h5>
+                                                            <p> </p>
+                                                        </div>
+                                                        <img [src]="image | domseguro " alt="">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <p> {{ matc.participants[idp].stats.goldEarned }} </p>
+                                            </td>
+                                        </tr>
+                                    </ng-container>
+                                </tbody>
+                            </table>
+                            <!-- End Match Winner -->
+
+                            <!-- Match Winner -->
+                            <table class="table table-borderless ">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th class="th-head" colspan="3">Derrota</th>
+                                        <th scope="col">División</th>
+                                        <th scope="col">Champ Level </th>
+                                        <th scope="col">KDA</th>
+                                        <th scope="col">Keystone</th>
+                                        <th scope="col">Items</th>
+                                        <th scope="col">Gold</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <ng-container *ngFor="let parti of dataParticipants; let idp = index ">
+                                        <tr *ngIf="matc.participants[idp].stats.win === false ">
+                                            <td class="champImage">
+                                                <!-- Champ detail -->
+                                                <div class="img-champ col-md-8 pt-2 ">
+                                                    <div class="">
+                                                        <div class="info">
+                                                            <h5> {{ matc.participants[idp].champInfo.name }} </h5>
+                                                            <p> BE{{ matc.participants[idp].champInfo.price.blueEssence }}</p>
+                                                            <p> RP: {{ matc.participants[idp].champInfo.price.rp }}</p>
+                                                        </div>
+                                                        <img [src]="matc.participants[idp].championIdImage" alt="">
+                                                    </div>
+                                                </div>
+
+                                                <!-- End Champ detail -->
+                                            </td>
+                                            <td>
+                                                <!-- Spells -->
+                                                <div class="img-spell row">
+                                                    <div class=" col-md-6">
+                                                        <img [src]="matc.participants[idp].spellId1Info.image" alt="">
+                                                    </div>
+                                                    <div class=" col-md-6">
+                                                        <img [src]="matc.participants[idp].spellId2Info.image" alt="">
+                                                    </div>
+                                                </div>
+                                                <!-- End Spells -->
+                                            </td>
+                                            <td>
+                                                <div style="width: 200px;">
+                                                    <p class="summoner-name">
+                                                        {{ matc.participantIdentities[idp].player.summonerName }}
+
+                                                    </p>
+                                                </div>
+                                            </td>
+
+                                            <td>
+                                                <p>Division</p>
+                                            </td>
+                                            <td>
+                                                <p> {{matc.participants[idp].stats.champLevel}} </p>
+                                            </td>
+                                            <td>
+                                                <p> {{matc.participants[idp].stats.kills}} / {{matc.participants[idp].stats.deaths}} / {{matc.participants[idp].stats.assists}} </p>
+                                            </td>
+                                            <td>
+                                                <div>
+                                                    <img class="perk-center" [src]="matc.participants[idp].stats.perkData.image | domseguro" alt="">
+                                                </div>
+                                            </td>
+                                            <td class="item-div">
+                                                <div class="img-item">
+                                                    <div *ngFor="let image of matc.participants[idp].stats.itemImage; let ii = index" class="item">
+                                                        <div class="info">
+                                                            <h5> {{ matc.participants[idp].stats.itemInfo[ii]?.name }} </h5>
+                                                            <p> </p>
+                                                        </div>
+                                                        <img [src]="image | domseguro " alt="">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <p> {{ matc.participants[idp].stats.goldEarned }} </p>
+                                            </td>
+                                        </tr>
+                                    </ng-container>
+                                </tbody>
+                            </table>
+                            <hr class="hr-style">
+                            <!-- End Match Winner -->
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+            <!-- End Single Match and Info -->
+
+
+        </div>
+    </ng-container>
+</div>
