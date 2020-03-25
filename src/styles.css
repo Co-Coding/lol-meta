@@ -273,6 +273,10 @@ div.img-spell {
     width: 80px;
 }
 
+.champ-history-image {
+    display: flex;
+}
+
 
 /* End Match History */
 

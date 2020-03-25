@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
 
   constructor( private summ:SummonerService ) { 
 
-    this.summoner.name = 'Pangi'
+    this.summoner.name = 'DBL NLSN'
     this.summoner.regionId = 'la2'
     this.region = [
       { region: 'la2' }, // LAS
@@ -92,6 +92,7 @@ export class HomeComponent implements OnInit {
         
         console.log(this.dataParticipants);
         console.log(this.matchesArray);
+        this.matchesArray.forEach( x => console.log(x.summonerMatchInfo))
         
         
        }), 
