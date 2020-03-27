@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
   show:boolean = false;
   cargando = false;
   gameDuration = [];
-  index;
+  index:number;
   region = [];
   clicked = false;
 
@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit {
     this.summoner.name = 'DBL NLSN'
     this.summoner.regionId = 'la2'
     this.region = [
-      { region: 'la2' }, // LAS
+      { region: 'la2' } // LAS
       //{ region: 'la1' }, 
       //{ region: 'br1' }
       // { region: 'na1' }, 
@@ -139,8 +139,6 @@ export class HomeComponent implements OnInit {
     this.summoner.name = summonername;
     this.onSubmit();
     
-    
-
   }
 
 
