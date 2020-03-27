@@ -15,7 +15,7 @@
                 </select>
             </div>
             <div class="d-flex justify-content-center">
-                <button class="btn btn-success">Buscar</button>
+                <button [disabled]="clicked" (click)="onSubmit(); clicked = true" class="btn btn-success">Buscar</button>
             </div>
         </div>
     </form>
@@ -63,12 +63,21 @@
                 </div>
                 <div>
                     <div>
-                        <img class="perk-center" [src]="matc.summonerMatchInfo?.stats.perkData.image | domseguro" alt="">
+                        <img class="perk-history-center" [src]="matc.summonerMatchInfo?.stats.perkData.image | domseguro" alt="">
                     </div>
                 </div>
                 <div class="col-md-3 item-history-div d-flex justify-content-center ">
                     <div class="img-item box-info ">
-                        <div *ngFor="let image of matc.summonerMatchInfo?.stats.itemImage; let ii = index" class="item" placement="top" ngbPopover="" triggers="mouseenter:mouseleave" [popoverTitle]="matc.summonerMatchInfo?.stats.itemInfo[ii]?.name">
+                        <div *ngFor="let image of matc.summonerMatchInfo?.stats.itemImage; let ii = index" class="item" placement="top" [ngbPopover]="popContent" triggers="mouseenter:mouseleave" [popoverTitle]="popTitle">
+                            <ng-template #popTitle>
+                                <div class="item-name">
+                                    {{ matc.summonerMatchInfo?.stats.itemInfo[ii]?.name }}
+                                </div>
+                            </ng-template>
+                            <ng-template #popContent>
+                                <div [innerHTML]="matc.summonerMatchInfo?.stats.itemInfo[ii]?.description">
+                                </div>
+                            </ng-template>
                             <img [src]="image | domseguro " alt="">
                         </div>
                     </div>
@@ -120,9 +129,11 @@
                                                 <!-- End Spells -->
                                             </td>
                                             <td>
-                                                <div style="width: 200px;">
-                                                    <p class="summoner-name">
-                                                        {{ matc.participantIdentities[idp].player.summonerName }}
+                                                <div class="summoner-name">
+                                                    <p>
+                                                        <span (click)="getSummoner(matc.participantIdentities[idp].player.summonerName)"> 
+                                                                {{ matc.participantIdentities[idp].player.summonerName }}                                  
+                                                        </span>
                                                     </p>
                                                 </div>
                                             </td>
@@ -142,7 +153,16 @@
                                             </td>
                                             <td class="item-div">
                                                 <div class="img-item box-info ">
-                                                    <div *ngFor="let image of matc.participants[idp].stats.itemImage; let ii = index" class="item" placement="top" ngbPopover="" triggers="mouseenter:mouseleave" [popoverTitle]="matc.participants[idp].stats.itemInfo[ii]?.name">
+                                                    <div *ngFor="let image of matc.participants[idp].stats.itemImage; let ii = index" class="item" placement="top" [ngbPopover]="popContent" triggers="mouseenter:mouseleave" [popoverTitle]="popTitle">
+                                                        <ng-template #popTitle>
+                                                            <div class="item-name">
+                                                                {{ matc.participants[idp].stats.itemInfo[ii]?.name }}
+                                                            </div>
+                                                        </ng-template>
+                                                        <ng-template #popContent>
+                                                            <div [innerHTML]="matc.participants[idp].stats.itemInfo[ii]?.description">
+                                                            </div>
+                                                        </ng-template>
                                                         <img [src]="image | domseguro " alt="">
                                                     </div>
                                                 </div>
@@ -156,7 +176,7 @@
                             </table>
                             <!-- End Match Winner -->
 
-                            <!-- Match Winner -->
+                            <!-- Match Loser -->
                             <table class="table table-borderless ">
                                 <thead class="thead-light">
                                     <tr>
@@ -195,9 +215,11 @@
                                                 <!-- End Spells -->
                                             </td>
                                             <td>
-                                                <div style="width: 200px;">
-                                                    <p class="summoner-name">
-                                                        {{ matc.participantIdentities[idp].player.summonerName }}
+                                                <div class="summoner-name">
+                                                    <p>
+                                                        <span (click)="getSummoner(matc.participantIdentities[idp].player.summonerName)"> 
+                                                                {{ matc.participantIdentities[idp].player.summonerName }}                                  
+                                                        </span>
                                                     </p>
                                                 </div>
                                             </td>
@@ -218,7 +240,16 @@
                                             </td>
                                             <td class="item-div">
                                                 <div class="img-item box-info">
-                                                    <div *ngFor="let image of matc.participants[idp].stats.itemImage; let ii = index" class="item" placement="top" ngbPopover="" triggers="mouseenter:mouseleave" [popoverTitle]="matc.participants[idp].stats.itemInfo[ii]?.name">
+                                                    <div *ngFor="let image of matc.participants[idp].stats.itemImage; let ii = index" class="item" placement="top" [ngbPopover]="popContent" triggers="mouseenter:mouseleave" [popoverTitle]="popTitle">
+                                                        <ng-template #popTitle>
+                                                            <div class="item-name">
+                                                                {{ matc.participants[idp].stats.itemInfo[ii]?.name }}
+                                                            </div>
+                                                        </ng-template>
+                                                        <ng-template #popContent>
+                                                            <div [innerHTML]="matc.participants[idp].stats.itemInfo[ii]?.description">
+                                                            </div>
+                                                        </ng-template>
                                                         <img [src]="image | domseguro " alt="">
                                                     </div>
                                                 </div>
@@ -230,7 +261,7 @@
                                     </ng-container>
                                 </tbody>
                             </table>
-                            <!-- End Match Winner -->
+                            <!-- End Match Loser -->
                         </div>
                     </ng-container>
                 </div>

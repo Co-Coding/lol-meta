@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { SummonerComponent } from './pages/summoner/summoner.component';
 import { DomseguroPipe } from './pipes/domseguro.pipe';
+import { ChampionComponent } from './pages/champion/champion.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { DomseguroPipe } from './pipes/domseguro.pipe';
     AppComponent,
     HomeComponent,
     SummonerComponent,
-    DomseguroPipe
+    DomseguroPipe,
+    ChampionComponent
   ],
   imports: [
     BrowserModule,
@@ -29,6 +31,7 @@ import { DomseguroPipe } from './pipes/domseguro.pipe';
     
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [ NO_ERRORS_SCHEMA ]
 })
 export class AppModule { }

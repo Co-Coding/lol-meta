@@ -25,14 +25,6 @@ label {
     border-top: 1px solid #7a7a7a;
 }
 
-div.img-champ div {
-    padding: 0;
-}
-
-div.img-item div {
-    padding: 0;
-}
-
 .kda-history {
     margin-top: 25px;
     margin-left: auto;
@@ -48,10 +40,14 @@ div.img-item div {
 }
 
 .defeat {
+    font-weight: bold;
+    font-size: 1.2rem;
     color: #c6443e;
 }
 
 .victory {
+    font-weight: bold;
+    font-size: 1.2rem;
     color: #1a78ae;
 }
 
@@ -67,11 +63,15 @@ div.img-item div {
     margin-right: auto;
 }
 
-.perk-center {
+.perk-history-center {
     margin-top: 25px;
     margin-left: auto;
     margin-right: auto;
     display: block;
+}
+
+.item-name {
+    color: crimson;
 }
 
 .item-history-div {
@@ -100,7 +100,9 @@ div.img-item div {
     color: #ffc400;
 }
 
-.summoner-name {
+.summoner-name p span {
+    cursor: pointer;
+    width: 200px;
     color: #ffc400;
     padding-top: 0.5rem;
     margin-left: 5px
@@ -136,6 +138,12 @@ div.img-item div {
 
 
 /* End Items */
+
+.perk-center {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
 
 
 /* Champ  */

@@ -28,6 +28,7 @@ export class HomeComponent implements OnInit {
   gameDuration = [];
   index;
   region = [];
+  clicked = false;
 
   summoner: Summoner = new Summoner
 
@@ -37,8 +38,8 @@ export class HomeComponent implements OnInit {
     this.summoner.regionId = 'la2'
     this.region = [
       { region: 'la2' }, // LAS
-      // { region: 'la1' }, 
-      // { region: 'br1' }, 
+      //{ region: 'la1' }, 
+      //{ region: 'br1' }
       // { region: 'na1' }, 
       // { region: 'eun1' }, 
       // { region: 'euw1' }, 
@@ -50,9 +51,9 @@ export class HomeComponent implements OnInit {
    
   }
   
-  onSubmit(form:NgForm ){
+  onSubmit(){
 
-    this.cargando = true;
+     this.cargando = true;
 
     this.summ.getSummoner( this.summoner.name,this.summoner.regionId )
     .pipe( 
@@ -74,8 +75,8 @@ export class HomeComponent implements OnInit {
          return matchesArray
       }),
       concatMap( matchesArray => {   
-        let vava = this.summ.getFork(matchesArray)
-        return vava
+        let matchesArrayData = this.summ.getFork(matchesArray)
+        return matchesArrayData
       }),
       tap( (matchesArray:any) => {
         let dataParticipants = [];
@@ -110,6 +111,7 @@ export class HomeComponent implements OnInit {
         
           this.gameDuration.push(hours + ":" + minutes) 
           this.cargando = false; 
+          this.clicked = false;
         });
        })
       )
@@ -130,6 +132,16 @@ export class HomeComponent implements OnInit {
     mat.show = mat.show  ? false : true;
   };
 
+  getSummoner(summonername){
+    console.log(summonername);
+    this.cargando = true;
+    this.clicked = true;
+    this.summoner.name = summonername;
+    this.onSubmit();
+    
+    
+
+  }
 
 
 }
