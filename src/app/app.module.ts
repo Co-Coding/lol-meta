@@ -12,6 +12,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { SummonerComponent } from './pages/summoner/summoner.component';
 import { DomseguroPipe } from './pipes/domseguro.pipe';
 import { ChampionComponent } from './pages/champion/champion.component';
+import { SanitizehtmlPipe } from './pipes/sanitizehtml.pipe';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { ChampionComponent } from './pages/champion/champion.component';
     HomeComponent,
     SummonerComponent,
     DomseguroPipe,
-    ChampionComponent
+    ChampionComponent,
+    SanitizehtmlPipe
   ],
   imports: [
     BrowserModule,

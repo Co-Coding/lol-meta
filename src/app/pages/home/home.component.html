@@ -31,51 +31,75 @@
 
 <div *ngIf="!cargando" class="container">
     <!-- Match History and Info -->
+    <!-- <header class="header">
+        <div class="history-kda">KDA</div>
+        <div class="history-gameduration">Game Duration</div>
+        <div class="history-gold">Gold Earned</div>
+        <div class="history-keystone">KeyStone</div>
+        <div class="history-items">Items</div>
+    </header> -->
     <ng-container *ngFor="let matc of matchesArray; let i = index">
         <hr class="hr-style">
         <div class="match-list flex-nowrap flex-row">
             <div class="row flex-nowrap flex-row mt-2 ">
                 <div class="col-md-2 champ-history-image">
                     <div class="match-history-champ col-md-6">
-                        <img class="match-history-champ-img" (click)="openMatchStats(i,matc)" [src]="matc.summonerMatchInfo?.championIdImage" alt="" srcset="">
+                        <img class="match-history-champ-img" (click)="openMatchStats(i,matc)" [src]="matc.summonerMatchInfo.championIdImage" alt="" srcset="">
                     </div>
                     <div>
-                        <div *ngIf=" matc.summonerMatchInfo?.stats.matchResult === 'Defeat' "> <span class="defeat">{{ matc.summonerMatchInfo?.stats.matchResult }} </span> </div>
-                        <div *ngIf=" matc.summonerMatchInfo?.stats.matchResult === 'Victory' "> <span class="victory">{{ matc.summonerMatchInfo?.stats.matchResult }} </span> </div>
+                        <div *ngIf="matc.gameMode === 'CLASSIC'"> <span class="ranked"> Ranked </span> </div>
+                        <div *ngIf="matc.gameMode === 'ONEFORALL'"> <span class="oneforall"> One for All </span> </div>
+                        <div *ngIf="matc.gameMode === 'URF'"> <span class="urf"> URF </span> </div>
+                        <div *ngIf=" matc.summonerMatchInfo.stats.win === false "> <span class="defeat"> Defeat </span> </div>
+                        <div *ngIf=" matc.summonerMatchInfo.stats.win === true "> <span class="victory"> Victory  </span> </div>
                         <div class="match-history-spell">
-                            <img [src]="matc.summonerMatchInfo?.spellId1Info.image" alt="">
-                            <img [src]="matc.summonerMatchInfo?.spellId2Info.image" alt="">
+                            <ng-template #popContent1>
+                                <div [innerHTML]="matc.summonerMatchInfo.spellId1Info.description | sanitizehtml"></div>
+                            </ng-template>
+                            <ng-template #popContent2>
+                                <div [innerHTML]="matc.summonerMatchInfo.spellId2Info.description | sanitizehtml"></div>
+                            </ng-template>
+                            <ng-template #popTitle1>
+                                <div class="spell-title" [innerHTML]="matc.summonerMatchInfo.spellId1Info.name | sanitizehtml"> </div>
+                            </ng-template>
+                            <ng-template #popTitle2>
+                                <div class="spell-title" [innerHTML]="matc.summonerMatchInfo.spellId2Info.name | sanitizehtml"> </div>
+                            </ng-template>
+                            <img placement="top" [ngbPopover]="popContent1" triggers="mouseenter:mouseleave" [popoverTitle]="popTitle1" [src]="matc.summonerMatchInfo.spellId1Info.image" alt="">
+                            <img placement="top" [ngbPopover]="popContent2" triggers="mouseenter:mouseleave" [popoverTitle]="popTitle2" [src]="matc.summonerMatchInfo.spellId2Info.image" alt="">
                         </div>
                     </div>
                 </div>
                 <div class="col-md-1 kda-history ">
-                    <span class="green"> {{matc.summonerMatchInfo?.stats.kills}} </span> / <span class="red">{{matc.summonerMatchInfo?.stats.deaths}} </span>/ <span class="gold"> {{matc.summonerMatchInfo?.stats.assists}} </span>
+                    <span class="green"> {{matc.summonerMatchInfo.stats.kills}} </span> / <span class="red">{{matc.summonerMatchInfo.stats.deaths}} </span>/ <span class="gold"> {{matc.summonerMatchInfo.stats.assists}} </span>
                 </div>
                 <div class="col-md-2 duration-history ">
                     <p>
-                        Game Duration {{ gameDuration[i] }}
+                        Game Duration
+                        <br> {{ gameDuration[i] }}
+
                     </p>
                 </div>
                 <div class="col-md-1 gold-history ">
                     <p class="gold">
-                        {{ matc.summonerMatchInfo?.stats.goldEarned }}
+                        Gold Earned {{ matc.summonerMatchInfo.stats.goldEarned }}
                     </p>
                 </div>
                 <div>
                     <div>
-                        <img class="perk-history-center" [src]="matc.summonerMatchInfo?.stats.perkData.image | domseguro" alt="">
+                        <img class="perk-history-center" [src]="matc.summonerMatchInfo.stats.perkData.image | domseguro" alt="">
                     </div>
                 </div>
                 <div class="col-md-3 item-history-div d-flex justify-content-center ">
                     <div class="img-item box-info ">
-                        <div *ngFor="let image of matc.summonerMatchInfo?.stats.itemImage; let ii = index" class="item" placement="top" [ngbPopover]="popContent" triggers="mouseenter:mouseleave" [popoverTitle]="popTitle">
+                        <div *ngFor="let image of matc.summonerMatchInfo.stats.itemImage; let ii = index" class="item" placement="top" [ngbPopover]="popContent" triggers="mouseenter:mouseleave" [popoverTitle]="popTitle">
                             <ng-template #popTitle>
                                 <div class="item-name">
-                                    {{ matc.summonerMatchInfo?.stats.itemInfo[ii]?.name }}
+                                    {{ matc.summonerMatchInfo.stats.itemInfo[ii]?.name }}
                                 </div>
                             </ng-template>
                             <ng-template #popContent>
-                                <div [innerHTML]="matc.summonerMatchInfo?.stats.itemInfo[ii]?.description">
+                                <div [innerHTML]="matc.summonerMatchInfo.stats.itemInfo[ii]?.description | sanitizehtml">
                                 </div>
                             </ng-template>
                             <img [src]="image | domseguro " alt="">
@@ -109,7 +133,7 @@
                                             <td class="champImage">
                                                 <!-- Champ detail -->
                                                 <div class="img-champ col-md-8 pt-2 box-info ">
-                                                    <div class="" placement="top" ngbPopover="" triggers="mouseenter:mouseleave" [popoverTitle]="matc.participants[idp].champInfo.name">
+                                                    <div class="" placement="top" ngbPopover="" triggers="mouseenter:mouseleave" [popoverTitle]="matc.participants[idp].champInfo?.name">
                                                         <img [src]="matc.participants[idp].championIdImage" alt="">
                                                     </div>
                                                 </div>
@@ -160,7 +184,7 @@
                                                             </div>
                                                         </ng-template>
                                                         <ng-template #popContent>
-                                                            <div [innerHTML]="matc.participants[idp].stats.itemInfo[ii]?.description">
+                                                            <div [innerHTML]="matc.participants[idp].stats.itemInfo[ii]?.description | sanitizehtml">
                                                             </div>
                                                         </ng-template>
                                                         <img [src]="image | domseguro " alt="">
@@ -195,7 +219,7 @@
                                             <td class="champImage">
                                                 <!-- Champ detail -->
                                                 <div class="img-champ col-md-8 pt-2 box-info">
-                                                    <div class="" placement="top" ngbPopover="" triggers="mouseenter:mouseleave" [popoverTitle]="matc.participants[idp].champInfo.name">
+                                                    <div class="" placement="top" ngbPopover="" triggers="mouseenter:mouseleave" [popoverTitle]="matc.participants[idp].champInfo?.name">
                                                         <img [src]="matc.participants[idp].championIdImage" alt="">
                                                     </div>
                                                 </div>
@@ -247,7 +271,7 @@
                                                             </div>
                                                         </ng-template>
                                                         <ng-template #popContent>
-                                                            <div [innerHTML]="matc.participants[idp].stats.itemInfo[ii]?.description">
+                                                            <div [innerHTML]="matc.participants[idp].stats.itemInfo[ii]?.description | sanitizehtml">
                                                             </div>
                                                         </ng-template>
                                                         <img [src]="image | domseguro " alt="">

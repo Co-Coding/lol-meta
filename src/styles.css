@@ -74,6 +74,10 @@ label {
     color: crimson;
 }
 
+.spell-title {
+    color: crimson;
+}
+
 .item-history-div {
     margin-top: 15px;
     vertical-align: middle;
@@ -104,8 +108,12 @@ label {
     cursor: pointer;
     width: 200px;
     color: #ffc400;
-    padding-top: 0.5rem;
+    margin-top: 10px;
     margin-left: 5px
+}
+
+.summoner-name p {
+    padding-top: 0.8rem;
 }
 
 
@@ -200,6 +208,12 @@ div.img-spell {
 
 .champ-history-image {
     display: flex;
+}
+
+.match-history-spell img {
+    width: 22px;
+    border: 2px solid #2a2a2a;
+    border-radius: 6px;
 }
 
 .match-history-spell img {

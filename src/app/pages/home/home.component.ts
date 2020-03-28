@@ -30,6 +30,8 @@ export class HomeComponent implements OnInit {
   region = [];
   clicked = false;
 
+  // bug con Fan de Soyeon fijarse
+
   summoner: Summoner = new Summoner
 
   constructor( private summ:SummonerService ) { 
@@ -100,12 +102,6 @@ export class HomeComponent implements OnInit {
 
         matchesArray.forEach( match =>{
 
-          if ( match.summonerMatchInfo.stats.win === true ){
-                match.summonerMatchInfo.stats.matchResult = 'Victory'
-          }else{
-                match.summonerMatchInfo.stats.matchResult = 'Defeat'
-          }
-
           let hours = Math.floor(match.gameDuration / 60);  
           let minutes = match.gameDuration % 60;
         
@@ -128,6 +124,8 @@ export class HomeComponent implements OnInit {
   }
 
   openMatchStats(index,mat){ 
+    console.log(mat);
+    
     this.index = index
     mat.show = mat.show  ? false : true;
   };
